@@ -1,0 +1,36 @@
+import pandas as pd
+
+# Crear DataFrame
+data = {
+    'ID': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'Producto': ['Laptop', 'Monitor', 'Teclado', 'Laptop', 'Tablet', 'Impresora', 'Smartphone', 'Mouse', 'Monitor', 'Tablet'],
+    'Categoría': ['Electrónica', 'Computación', 'Accesorios', 'Electrónica', 'Computación', 'Oficina', 'Electrónica', 'Accesorios', 'Computación', 'Computación'],
+    'Ventas': [15, 8, 25, 10, 20, 5, 30, 40, 12, 18],
+    'Precio Unitario': [1200.00, 500.00, 50.00, 1100.00, 700.00, 400.00, 800.00, 20.00, 450.00, 750.00],
+    'Total Ventas': [18000.00, 4000.00, 1250.00, 11000.00, 14000.00, 2000.00, 24000.00, 800.00, 5400.00, 13500.00],
+    'Región': ['Norte', 'Sur', 'Norte', 'Este', 'Oeste', 'Norte', 'Sur', 'Este', 'Oeste', 'Norte']
+}
+df = pd.DataFrame(data)
+
+#  Categoría con mayor total de ventas acumuladas
+categoria_mayor_ventas = df.groupby('Categoría')['Total Ventas'].sum().idxmax()
+print(f"Categoría con mayor ventas: {categoria_mayor_ventas}")
+
+
+###  Productos con precio unitario > 500
+productos_caros = df[df['Precio Unitario'] > 500][['Producto', 'Precio Unitario']]
+print("Productos con precio > 500:")
+print(productos_caros)
+
+##
+# Precio promedio de todos los productos
+precio_promedio = df['Precio Unitario'].mean()
+print(f"Precio promedio: {precio_promedio:.2f}")
+
+###  Nueva columna con precios aumentados 10%
+df['Precio Actualizado'] = df['Precio Unitario'] * 1.10
+print("\nDataFrame con precios actualizados:")
+print(df[['Producto', 'Precio Unitario', 'Precio Actualizado']])
+
+
+##
